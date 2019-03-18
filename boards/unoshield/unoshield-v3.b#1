@@ -213,7 +213,6 @@ unoshield-v3</text>
 <text x="12.192" y="40.64" size="1.27" layer="21" rot="R270">277-6354-ND</text>
 <text x="26.416" y="33.02" size="1.27" layer="21" rot="R180">D5</text>
 <text x="10.541" y="16.51" size="1.27" layer="21" rot="R180">D5</text>
-<text x="10.16" y="10.668" size="1.27" layer="21">10k</text>
 </plain>
 <libraries>
 <library name="resistor">
