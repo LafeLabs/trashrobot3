@@ -1,0 +1,22 @@
+## Bill of Materials
+
+
+### Uno Shield
+
+| description   |  part number | number | link |
+|---------------|--------------|--------|------|
+|  Buttons      |     P8083SCT-ND     |    2   |[Digikey](https://www.digikey.com/short/p8519v)| 
+|   switch      |        |    1   |[digikey]() |
+| big cap |1189-1745-ND|1|[digikey]()|
+| spring clips | 277-6354-ND   |    3   | [digikey](https://www.digikey.com/product-detail/en/infineon-technologies/IRF7862TRPBF/IRF7862TRPBFCT-ND/1925918) |
+|  20k pot      |              |    1   |[digikey]()|
+|  4 pin header |              |    2   |[digikey]()|
+|  5 pin header |              |    1   |[digikey]()|
+|    Transistor |  IRF7862     |    1   |[mouser](https://www.mouser.com/ProductDetail/Infineon-IR/IRF7862TRPBF?qs=%2fha2pyFadughaNBoB2VyeDpq8vz8zxt1%252baAF1EqMLy8%3d)| 
+|diode| S1BFSCT-ND | 1|[digikey](https://www.digikey.com/product-detail/en/on-semiconductor/S1B/S1BFSCT-ND/965719)|
+|8 pin socket |SSQ-108-23-F-S|2|[Samtec](https://www.samtec.com/products/ssq-108-23-f-s)|
+|10 pin socket|SSQ-110-23-F-S|1|[Samtec](https://www.samtec.com/products/ssq-110-23-f-s)|
+|6 pin socket |SSQ-106-23-F-S|1|[Samtec](https://www.samtec.com/products/ssq-106-23-f-s)|
+|10k resistor ||2||
+|300 ohms     ||1||
+

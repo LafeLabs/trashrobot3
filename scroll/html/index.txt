@@ -1,0 +1,413 @@
+<div id = "navbar">
+<table>
+    <tr>
+        <td><a href = "editor.php">
+            <img style = "width:80px;" src = "icons/editor.svg"/>
+        </a></td>
+        <td><a href = "../">
+            <img style = "width:80px;" src = "icons/mapfactory.svg"/>
+        </a></td>
+        <td><a href = "tree.php">
+            <img style = "width:80px;" src = "icons/tree.svg"/>
+        </a></td>
+        <td id = "modebutton">
+            <img style = "width:80px" src = "icons/scrollmode.svg"/>
+        </td>
+        <td><a href = "textfeed.php">
+            <img style = "width:80px;" src = "icons/textfeed.svg"/>
+        </a></td>
+        <td><a href = "bookfactory.php">
+            <img style = "width:80px;" src = "icons/bookfactory.svg"/>
+        </a></td>
+        <td id = "texbutton" class = "button">
+            $\LaTeX$
+        </td>
+        <td id = "texeditbutton" style = "border:solid;border-radius:10px">
+            <a id =  "texedit" href = "texeditor.php">
+            <img style = "width:40px;display:block;margin:auto" src = "icons/editor.svg"/>
+            $\TeX$
+            </a>
+        </td>
+    </tr>
+</table>
+<input id = "linkinput" class = "no-mathjax"/>
+</div>
+<textarea id = "editor"></textarea>
+<div id = "scroll"></div>
+<div id = "imagescroll"></div>
+<div id = "invisiblescroll" style = "display:none"></div>
+<script>
+
+
+if(document.getElementById("filenamediv").innerHTML.length > 1){
+    document.getElementById("texedit").href += "?filename=" + document.getElementById("filenamediv").innerHTML.split(".txt")[0] + ".tex";
+}
+
+
+document.getElementById("editor").style.width = 0.40*innerWidth.toString() + "px";
+                
+document.getElementById("editor").style.height = (innerHeight - 110).toString() + "px";
+var converter = new showdown.Converter();
+
+converter.setOption('literalMidWordUnderscores', 'true');
+converter.setOption('tables', 'true');
+
+//currentFile = "markdown/scroll.txt";
+currentFile = "markdown/" + document.getElementById("filenamediv").innerHTML;
+
+bookname = "";
+if(currentFile.includes("bookfactory")){
+    filenamearray = currentFile.split("/");
+    bookname = filenamearray[filenamearray.length - 2];
+}
+else{
+    document.getElementById("texbutton").style.display = "none";
+    document.getElementById("texeditbutton").style.display = "none";
+}
+
+rawhtml = "";
+var httpc = new XMLHttpRequest();
+httpc.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        filedata = this.responseText;
+        document.getElementById("editor").value = filedata;
+        rawhtml = converter.makeHtml(filedata);
+        document.getElementById("scroll").innerHTML = rawhtml;
+        document.getElementById("invisiblescroll").innerHTML = rawhtml;
+        MathJax.Hub.Typeset();//tell Mathjax to update the math
+    }
+};
+httpc.open("GET", "fileloader.php?filename=" + currentFile, true);
+httpc.send();
+
+
+document.getElementById("editor").onkeyup = function(){
+    rawhtml = converter.makeHtml(this.value);
+    document.getElementById("scroll").innerHTML = rawhtml;
+    document.getElementById("invisiblescroll").innerHTML = rawhtml;
+    MathJax.Hub.Typeset();//tell Mathjax to update the math
+    data = encodeURIComponent(this.value);
+    var httpc = new XMLHttpRequest();
+    var url = "filesaver.php";        
+    httpc.open("POST", url, true);
+    httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+    httpc.send("data="+data+"&filename="+currentFile);//send text to filesaver.php
+    
+}
+    
+editmode = true;
+    
+document.getElementById("modebutton").onclick = function(){
+    editmode = !editmode;
+    if(editmode){
+        document.getElementById("scroll").style.left = (0.6*innerWidth).toString() + "px";
+        document.getElementById("editor").style.display = "block";
+        document.getElementById("imagescroll").style.display = "block";
+    }
+    else{
+        document.getElementById("scroll").style.left = "10px";
+        document.getElementById("editor").style.display = "none";
+        document.getElementById("imagescroll").style.display = "none";
+    }
+}
+document.getElementById("modebutton").click();
+
+
+svgfiles = document.getElementById("svgfilesdiv").innerHTML.split(",");
+
+for(var index = 0;index < svgfiles.length-1;index++){
+    var newimg = document.createElement("IMG");
+    newimg.src = svgfiles[index];
+    document.getElementById("imagescroll").appendChild(newimg);
+    newimg.onclick = function(){
+        document.getElementById("linkinput").value = "![](" + this.src + ")";
+        document.getElementById("linkinput").select();
+    }
+}
+
+extimagejson = JSON.parse(document.getElementById("imgurlsdiv").innerHTML);
+
+for(var index = 0;index < extimagejson.length;index++){
+    var newimg = document.createElement("IMG");
+    newimg.src = extimagejson[index];
+    document.getElementById("imagescroll").appendChild(newimg);
+    newimg.onclick = function(){
+        document.getElementById("linkinput").value = "![](" + this.src + ")";
+        document.getElementById("linkinput").select();
+    }
+}
+
+uploadfiles = document.getElementById("uploadimages").innerHTML.split(",");
+
+for(var index = 0;index < uploadfiles.length-1;index++){
+    var newimg = document.createElement("IMG");
+    newimg.src = uploadfiles[index];
+    document.getElementById("imagescroll").appendChild(newimg);
+    newimg.onclick = function(){
+        document.getElementById("linkinput").value = "![](" + this.src + ")";
+        document.getElementById("linkinput").select();
+    }
+}
+
+
+textelements = document.getElementById("textdatadiv").getElementsByClassName("textelement");
+    
+for(var index = 0;index < textelements.length;index++){
+        var newp = document.createElement("p");
+        newp.innerHTML = textelements[index].innerHTML;
+        newp.className = "scrollelement";
+        document.getElementById("imagescroll").appendChild(newp);
+        newp.id = "p" + index.toString();
+        newp.onclick = function(){
+            pindex = this.id.substring(1);
+            document.getElementById("linkinput").value = textelements[pindex].innerHTML;
+            document.getElementById("linkinput").select();
+        }
+}
+    
+MathJax.Hub.Typeset();//tell Mathjax to update the math
+
+
+document.getElementById("texbutton").onclick = function(){
+
+    rawhtml = converter.makeHtml(document.getElementById("editor").value);
+    
+    console.log(rawhtml);
+    document.getElementById("invisiblescroll").innerHTML = rawhtml;
+    images = document.getElementById("invisiblescroll").getElementsByTagName("img");
+
+    for(var index = 0;index < images.length;index++){
+        
+        var localgraphictext = "";
+        localgraphictext += "\n\\includegraphics";
+        if(images[index].width > 300){
+            localgraphictext += "[width=3.5in]";
+        }
+        localgraphictext += "{";
+        localgraphictext += images[index].src.split("bookfactory/" + bookname + "/")[1];
+        localgraphictext += "}\n";
+ 
+        var localp = images[index].parentNode;
+
+        if(localp.getElementsByTagName("IMG").length == 1 || localp.getElementsByTagName("IMG").length == 0){
+            //ony one image in this paragraph
+            localp.removeChild(images[index]);
+            var localtop = "\\begin{figure}[h]";
+            var localcaption = "\n\\caption{" + localp.innerHTML + "}";
+            var localbottom = "\n\\end{figure}\n";
+            localgraphictext = localtop + localgraphictext + localcaption + localbottom;
+            localp.innerHTML = localgraphictext;
+        }
+        else{
+            localp.innerHTML += localgraphictext;
+        }
+        
+    }
+    
+    for(var index = 0;index < images.length;index++){
+        images[index].removeAttribute("alt");
+        images[index].removeAttribute("src");
+    }
+
+    textin = document.getElementById("invisiblescroll").innerHTML;
+
+//    console.log(textin);
+
+    textout = "\n\\documentclass[11pt]{article}\n\\usepackage{hyperref}\n\\usepackage{graphicx}\n\\usepackage{hyperref}\n\\usepackage{listings}\n\\usepackage[paperheight=8.5in,paperwidth=5.5in,margin=0.5in]{geometry}\n\\begin{document}\n";
+    
+
+    textout += textin;    
+    
+    textout+= "\n\\end{document}\n";
+
+ 
+    textout = textout.replace(/<img>/g,"");
+    textout = textout.replace(/<h1>/g,"\n\\section{");
+    textout = textout.replace(/<\/h1>/g,"}");
+    textout = textout.replace(/<h2>/g,"\n\\section{");
+    textout = textout.replace(/<\/h2>/g,"}");
+    textout = textout.replace(/<h3>/g,"\n\\section{");
+    textout = textout.replace(/<\/h3>/g,"}");
+    textout = textout.replace(/<h4>/g,"\n\\section{");
+    textout = textout.replace(/<\/h4>/g,"}");
+
+    textout = textout.replace(/<li>/g,"\\item\n");
+    textout = textout.replace(/<\/li>/g,"");
+    
+    textout = textout.replace(/<ul>/g,"\\begin{itemize}\n");
+    textout = textout.replace(/<\/ul>/g,"\\end{itemize}");
+
+    textout = textout.replace(/<ol>/g,"\\begin{enumerate}\n");
+    textout = textout.replace(/<\/ol>/g,"\\end{enumerate}");
+
+    textout = textout.replace(/<pre><code>/g,"\\begin{lstlisting}\n");
+    textout = textout.replace(/<\/code><\/pre>/g,"\\end{lstlisting}");
+
+//links are \href{href}{innerHTML}
+
+
+// arduino code highlight:  
+// https://github.com/trihedral/ArduinoLatexListing
+
+    textout = textout.replace(/<p>/g,"\n\n");
+    textout = textout.replace(/<\/p>/g,"\n\n");
+
+   // textout = textout.replace(/<img src=\"latex\//g,"\n\\includegraphics{"); 
+
+
+//    textout = textout.replace(/<img src=\"/g,"\n\\includegraphics[width=3in]{"); 
+    
+//    textout = textout.replace(/\">/g,"}");
+    
+
+// \href{http://www.latex-tutorial.com}{LaTeX-Tutorial}
+
+// replace <a href = "href">innerHTML</a>
+//         \href{href}{innerHTML}
+
+// <a href = \" --> \href{
+// \"> --> }{
+// </a> -- }   
+
+    aarray = textout.split("<a href=\"");
+    var temptextout = aarray[0];
+    for(var index = 1;index < aarray.length;index++){
+        temptextout += "\\href{";
+        temptextout += aarray[index].split("}")[0];
+        temptextout += "}{";
+        temptextout += aarray[index].split("}")[1].split("</a>")[0];
+        temptextout += "}";
+        temptextout += aarray[index].split("</a>")[1];
+    }
+    //textout = temptextout;
+   // console.log(temptextout);
+
+
+    data = encodeURIComponent(textout);
+
+    texfile = "scroll.tex";
+    if(!currentFile.includes("bookfactory")){
+        texfile = "latex/" + currentFile.split("markdown/")[1].split(".")[0] + ".tex";        
+    }
+    
+    if(currentFile.includes("bookfactory")){
+        var localurlarray = currentFile.split("/");
+        txtfile = localurlarray[localurlarray.length - 2];
+        texfile = "bookfactory/" + txtfile.split(".txt")[0] + "/scroll.tex";
+    }    
+    
+    var httpc = new XMLHttpRequest();
+    var url = "filesaver.php";
+    httpc.open("POST", url, true);
+    httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+    httpc.send("data="+data+"&filename="+ texfile);//send text to filesaver.php
+   
+   
+    if(!currentFile.includes("bookfactory")){
+
+        var httpc = new XMLHttpRequest();
+        var url = "mkdir.php";
+        httpc.open("POST", url, true);
+        httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+        dirname = "latex/" + currentFile.split("markdown/")[1].split(".")[0] + "_images";
+       httpc.send("dirname="+dirname);//send text to mkdir.php   
+
+    }
+ 
+}
+
+
+</script>
+<style>
+body{
+    overflow:hidden;
+}
+    #editor{
+        position:absolute;
+        left:10px;
+        top:110px;
+        width:45%;
+        bottom:0px;
+        z-index:0;
+    }
+    #scroll{
+        position:absolute;
+        right:0px;
+        left:50%;
+        top:100px;
+        bottom:0px;
+        overflow:scroll;
+        border:solid;
+        border-radius:10px;
+        padding:2em 2em 2em 2em;
+        z-index:1;
+    }
+    #scroll img{
+        display:block;
+        margin:auto;
+        max-width:90%;
+    
+    }
+    #imagescroll{
+        position:absolute;
+        display:none;
+        top:100px;
+        left:42%;
+        right:40%;
+        bottom:0px;
+        overflow:scroll;
+        border:solid;
+        border-radius:5px;
+    }
+    #imagescroll img{
+        width:80%;
+        display:block;
+        margin:auto;
+        cursor:pointer;
+    }
+    h1,h2,h3,h4,h5{
+        width:100%;
+        text-align:center;
+    }
+    #navbar{
+        position:absolute;
+        top:0px;
+        left:0px;
+        right:0px;
+        height:0px;
+    }
+    #linktable{
+        position:absolute;
+        left:0px;
+        top:0px;
+    }
+    #modebutton{
+        cursor:pointer;
+    }
+    #linkinput{
+        position:absolute;
+        top:0px;
+        right:0px;
+        font-family:courier;
+        font-size:18px;
+        width:20em;
+    }
+    #texbutton{
+        border:solid;
+        cursor:pointer;
+        border-radius:15px;
+    }
+    #texbutton:hover{
+        background-color:green;
+    }
+    #texbutton:active{
+        background-color:yellow;
+    }
+    .scrollelement{
+        cursor:pointer;
+    }
+    .scrollelement:hover{
+        background-color:green;
+    }
+
+</style>
