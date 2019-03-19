@@ -1,0 +1,531 @@
+
+
+
+/*
+document.getElementById("savepng").onclick = function(){
+    svgwidth = currentJSON.svgwidth;
+    svgheight = currentJSON.svgheight;
+    tempx0 = x0;
+    tempy0 = y0;
+    x0 -= 0.5*(innerWidth - svgwidth);
+    y0 -= 0.5*(innerHeight - svgheight);
+    document.getElementById("invisibleCanvas").width = svgwidth;
+    document.getElementById("invisibleCanvas").height = svgheight;
+    document.getElementById("invisibleCanvas").display = "block";
+    ctx = document.getElementById("invisibleCanvas").getContext("2d");
+
+    doTheThing(0300);
+    drawGlyph(cleanGlyph);
+    var pngdata = document.getElementById("invisibleCanvas").toDataURL();
+    document.getElementById("invisibleCanvas").display = "none";
+    document.getElementById("textIO").value = pngdata;
+
+    document.getElementById("toppng").style.display = "block";
+    document.getElementById("toppng").style.left = (0.5*(innerWidth - svgwidth)).toString() + "px";
+    document.getElementById("toppng").style.top = (0.5*(innerHeight - svgheight)).toString() + "px";
+    document.getElementById("toppng").src  = pngdata;
+    x0 = tempx0;
+    y0 = tempy0;
+    redraw();
+}
+*/
+
+document.getElementById("savesvg").onclick = function(){
+    currentJSON.table = [];
+    for(var index = 0220;index < 0277;index++){
+        if(currentTable[index].length > 3){
+            var tableline = "0" + index.toString(8) + ":" + currentTable[index];
+            currentJSON.table.push(tableline);
+        }
+    }
+    for(var index = 01220;index < 01277;index++){
+        if(currentTable[index].length > 3){
+            var tableline = "0" + index.toString(8) + ":" + currentTable[index];
+            currentJSON.table.push(tableline);
+        }
+    }
+
+    svgwidth = currentJSON.svgwidth;
+    svgheight = currentJSON.svgheight;
+    tempx0 = x0;
+    tempy0 = y0;
+    x0 -= 0.5*(innerWidth - svgwidth);
+    y0 -= 0.5*(innerHeight - svgheight);
+    ctx = document.getElementById("invisibleCanvas").getContext("2d");
+    currentSVG = "<svg width=\"" + svgwidth.toString() + "\" height=\"" + svgheight.toString() + "\" viewbox = \"0 0 " + svgwidth.toString() + " " + svgheight.toString() + "\"  xmlns=\"http://www.w3.org/2000/svg\">\n";
+    currentSVG += "\n<!--\n<json>\n" + JSON.stringify(currentJSON,null,"    ") + "\n</json>\n-->\n";
+    doTheThing(0300);
+    drawGlyph(cleanGlyph);
+    currentSVG += "</svg>";
+
+
+    timestamp = Math.round((new Date().getTime())/1000).toString();
+        
+    var httpc = new XMLHttpRequest();
+    var url = "feedsaver.php";        
+    httpc.open("POST", url, true);
+    httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    if(path.length > 1){
+         httpc.send("data=" + encodeURIComponent(currentSVG) + "&path=" + path + "&timestamp=" + timestamp);//send text to feedsaver.php
+    }
+    else{
+        httpc.send("data=" + encodeURIComponent(currentSVG) + "&timestamp=" + timestamp);//send text to feedsaver.php
+    }
+    x0 = tempx0;
+    y0 = tempy0;
+    currentJSON.table = [];
+
+    tempx0 = x0;
+    tempy0 = y0;
+    x0 -= 0.5*(innerWidth - svgwidth);
+    y0 -= 0.5*(innerHeight - svgheight);
+    document.getElementById("invisibleCanvas").width = svgwidth;
+    document.getElementById("invisibleCanvas").height = svgheight;
+    document.getElementById("invisibleCanvas").display = "block";
+    ctx = document.getElementById("invisibleCanvas").getContext("2d");
+
+    doTheThing(0300);
+    drawGlyph(cleanGlyph);
+    pngdata = document.getElementById("invisibleCanvas").toDataURL("image/png");
+    document.getElementById("invisibleCanvas").display = "none";
+
+    document.getElementById("toppng").style.display = "block";
+    document.getElementById("toppng").style.left = (0.5*(innerWidth - svgwidth)).toString() + "px";
+    document.getElementById("toppng").style.top = (0.5*(innerHeight - svgheight)).toString() + "px";
+    document.getElementById("toppng").src  = pngdata;
+    x0 = tempx0;
+    y0 = tempy0;
+//    redraw();
+
+
+    var httpc2 = new XMLHttpRequest();
+    var url = "pngsave.php";        
+    httpc2.open("POST", url, true);
+    httpc2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    if(path.length > 1){
+       httpc2.send("data="+encodeURIComponent(pngdata)+"&filename=symbols/"+ path + "png/png" + timestamp +  ".png&path=" + path);//send text to filesaver.php
+    }
+    else{
+       httpc2.send("data="+encodeURIComponent(pngdata)+"&filename=png/png" + timestamp +  ".png");//send text to filesaver.php
+    }
+
+
+}
+ 
+saveSVG(); 
+function saveSVG(){
+    currentJSON.table = [];
+    for(var index = 0220;index < 0277;index++){
+        if(currentTable[index].length > 3){
+            var tableline = "0" + index.toString(8) + ":" + currentTable[index];
+            currentJSON.table.push(tableline);
+        }
+    }
+    for(var index = 01220;index < 01277;index++){
+        if(currentTable[index].length > 3){
+            var tableline = "0" + index.toString(8) + ":" + currentTable[index];
+            currentJSON.table.push(tableline);
+        }
+    }
+    
+    svgwidth = currentJSON.svgwidth;
+    svgheight = currentJSON.svgheight;
+    tempx0 = x0;
+    tempy0 = y0;        
+    x0 -= 0.5*(innerWidth - svgwidth);
+    y0 -= 0.5*(innerHeight - svgheight);
+    ctx = document.getElementById("invisibleCanvas").getContext("2d");
+    currentSVG = "<svg width=\"" + svgwidth.toString() + "\" height=\"" + svgheight.toString() + "\" viewbox = \"0 0 " + svgwidth.toString() + " " + svgheight.toString() + "\"  xmlns=\"http://www.w3.org/2000/svg\">\n";
+    currentSVG += "\n<!--\n<json>\n" + JSON.stringify(currentJSON,null,"    ") + "\n</json>\n-->\n";
+    doTheThing(0300);
+    drawGlyph(cleanGlyph);
+    currentSVG += "</svg>";
+
+    var httpc = new XMLHttpRequest();
+    var url = "filesaver.php";          
+    httpc.open("POST", url, true);
+    httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+
+    if(path.length > 1){
+        httpc.send("data="+currentSVG+"&filename=symbols/" + path + "currentsvg.svg");//send text to filesaver.php
+    }
+    else{
+        httpc.send("data="+currentSVG+"&filename=currentsvg.svg");//send text to filesaver.php
+
+    }
+    x0 = tempx0;
+    y0 = tempy0;
+    currentJSON.table = [];
+
+
+ }
+ 
+
+document.getElementById("mainCanvas").onclick = function(){
+    document.getElementById("keytable").style.display = "block";
+}
+
+document.getElementById("actionInput").onclick = function(){
+    document.getElementById("keytable").style.display = "none";
+}
+document.getElementById("actionInput").onselect = function(){
+    document.getElementById("keytable").style.display = "none";
+}
+
+document.getElementById("actionInput").onkeydown = function(e) {
+//        if(document.getElementById("pngimage").style.display == "block"){
+  //          document.getElementById("pngimage").style.display = "none";
+    //    }
+        charCode = e.keyCode || e.which;
+        arrowkey = false;
+        if(e.key == "ArrowUp"){
+            arrowkey = true;
+        }
+        if(charCode == 010){
+            doTheThing(010);
+            redraw();
+            arrowkey = true;
+        }
+        if(charCode == 045){
+            doTheThing(020);
+            redraw();
+            arrowkey = true;
+
+        }
+        if(charCode == 047){
+            doTheThing(021);
+            redraw();
+            arrowkey = true;
+
+        }
+        
+        if(charCode == 046){//   doTheThing(023);
+            if(shapetableindex != 030){
+                shapekeys[shapetableindex].style.borderColor = "black";
+            }
+            currentAddress++;
+            if(currentAddress > 0250 && currentAddress < 01000){
+                currentAddress = 0220;
+            }
+            if(currentAddress > 01247){
+                currentAddress = 01220;
+            }
+
+            currentGlyph = currentTable[currentAddress] + ",0207,";
+            redraw();
+            arrowkey = true;
+            shapetableindex = (currentAddress&0777) - 0220;
+            if(shapetableindex != 030){
+                shapekeys[shapetableindex].style.borderColor = "green";
+            }
+        }
+        if(charCode == 050){//    doTheThing(022);
+            if(shapetableindex != 030){
+                shapekeys[shapetableindex].style.borderColor = "black";
+            }
+
+            currentAddress--;
+            if(currentAddress < 0220){
+                currentAddress = 0250;
+            }
+            if(currentAddress > 01000 && currentAddress < 01220){
+                currentAddress = 01247;
+            }
+            currentGlyph = currentTable[currentAddress] + ",0207,";
+            redraw();
+            arrowkey = true;
+            shapetableindex = (currentAddress&0777) - 0220;
+
+            if(shapetableindex != 030){
+                shapekeys[shapetableindex].style.borderColor = "green";
+            }
+
+        }        
+    }
+    
+    
+document.getElementById("glyphspellinput").onchange = function(){
+    cleanGlyph = this.value;
+    currentGlyph = cleanGlyph + "0207,";
+    redraw();
+}
+
+
+    
+document.getElementById("actionInput").onkeypress = function(a){//action
+    charCode = a.keyCode || a.which;
+    //console.log(a.which.toString(8));
+    if(charCode != 010 && charCode != 047 && charCode != 050 && !arrowkey){
+            
+        if(parseInt(currentTable[charCode],8) >= 0200 && parseInt(currentTable[charCode],8) != currentAddress){
+            var glyphSplit = currentGlyph.split(",");
+            currentGlyph = "";
+            for(var index = 0;index < glyphSplit.length;index++){
+                if(glyphSplit[index].length > 0 && glyphSplit[index] != "0207"){
+                    currentGlyph += glyphSplit[index] + ",";
+                }
+                if(glyphSplit[index] == "0207"){
+                    currentGlyph += currentTable[charCode] + ",0207,";
+                }
+            }
+            var glyphSplit = currentGlyph.split(",");
+            currentGlyph = "";
+            for(var index = 0;index < glyphSplit.length;index++){
+                if(glyphSplit[index].length > 0  && parseInt(glyphSplit[index]) >= 040){
+                    currentGlyph += glyphSplit[index] + ",";
+                }
+            }
+            redraw();
+        } 
+        if(parseInt(currentTable[charCode],8) < 040){
+            doTheThing(parseInt(currentTable[charCode],8));
+            redraw();
+        }
+        this.value = "";
+    }
+    
+
+
+}
+    
+    
+    document.getElementById("printInput").onkeydown = function(e) {
+        charCode = e.keyCode || e.which;
+        arrowkey = false;
+        if(charCode == 010){
+            doTheThing(010);
+            redraw();
+            arrowkey = true;
+        }
+        if(charCode == 045){
+            doTheThing(020);
+            redraw();
+            arrowkey = true;
+        }
+        if(charCode == 047){
+            doTheThing(021);
+            redraw();
+            arrowkey = true;
+        }
+    }
+    
+    document.getElementById("stackInput").onkeydown = function(e) {
+        charCode = e.keyCode || e.which;
+        arrowkey = false;
+        if(charCode == 010){
+            doTheThing(010);
+            redraw();
+            arrowkey = true;
+        }
+        if(charCode == 045){
+            doTheThing(020);
+            redraw();
+            arrowkey = true;
+        }
+        if(charCode == 047){
+            doTheThing(021);
+            redraw();
+            arrowkey = true;
+        }
+
+    }
+ 
+ document.getElementById("printInput").onkeypress = function(a){//print
+    charCode = a.keyCode || a.which;
+    if(charCode != 010  && charCode != 047  && !arrowkey){
+        var glyphSplit = currentGlyph.split(",");
+        currentGlyph = "";
+        for(var index = 0;index < glyphSplit.length;index++){
+            if(glyphSplit[index].length > 0 && glyphSplit[index] != "0207"){
+                currentGlyph += glyphSplit[index] + ",";
+            }
+            if(glyphSplit[index] == "0207"){
+                currentGlyph += "0" + (charCode + 01000).toString(8) + ",0207,";
+            }
+        }
+        var glyphSplit = currentGlyph.split(",");
+        currentGlyph = "";
+        for(var index = 0;index < glyphSplit.length;index++){
+            if(glyphSplit[index].length > 0  && parseInt(glyphSplit[index]) >= 040){
+                currentGlyph += glyphSplit[index] + ",";
+            }
+        }
+        redraw();
+        this.value = "";
+    }
+}
+    
+document.getElementById("stackInput").onkeypress = function(a){//stack
+    charCode = a.keyCode || a.which;    
+    if(charCode != 010 && charCode != 047  && !arrowkey){
+        var glyphSplit = currentGlyph.split(",");
+        currentGlyph = "";
+        for(var index = 0;index < glyphSplit.length;index++){
+            if(glyphSplit[index].length > 0 && glyphSplit[index] != "0207"){
+                currentGlyph += glyphSplit[index] + ",";
+            }
+            if(glyphSplit[index] == "0207"){
+                currentGlyph += "0" + (charCode).toString(8) + ",0207,";
+            }
+        }
+        var glyphSplit = currentGlyph.split(",");
+        currentGlyph = "";
+        for(var index = 0;index < glyphSplit.length;index++){
+            if(glyphSplit[index].length > 0  && parseInt(glyphSplit[index]) >= 040){
+                currentGlyph += glyphSplit[index] + ",";
+            }
+        }
+        redraw();
+        this.value = "";
+    }
+}
+
+document.getElementById("symbolactionbutton").onclick = function(){
+    if(currentAddress > 01000){
+        currentAddress -= 01000;
+    }
+    else{
+        currentAddress += 01000;
+    }
+    currentGlyph = currentTable[currentAddress] + ",0207,";
+    redraw();
+    
+}
+ 
+
+document.getElementById("hidebutton").onclick = function(){
+    document.getElementById("shapecontrolpanel").style.display = "none";
+    document.getElementById("showbutton").style.display = "block";
+}
+document.getElementById("showbutton").onclick = function(){
+    document.getElementById("shapecontrolpanel").style.display = "block";
+    document.getElementById("showbutton").style.display = "none";
+}
+
+document.getElementById("exportdatabutton").onclick = function(){
+    bytecodedata = "";
+    for(var index = 0220;index < 0247;index++){
+        if(currentTable[index].length > 1){
+            bytecodedata +=  "0" + index.toString(8) + ":" +  currentTable[index] + "\n";   
+        }
+    }
+    for(var index = 01220;index < 01247;index++){
+        if(currentTable[index].length > 1){
+            bytecodedata +=  "0" + index.toString(8) + ":" + currentTable[index] + "\n";   
+        }
+    }
+    document.getElementById("textIO").value = bytecodedata;    
+
+}
+
+document.getElementById("importdatabutton").onclick = function(){
+    //this is either json or bytecode, test for both.  only json will have {.
+    var localstring = document.getElementById("textIO").value;
+    if(localstring.search("{") == -1){
+        var inputbytecode = localstring;
+        var bytecodearray = inputbytecode.split("\n");
+        for(var index = 0;index < bytecodearray.length;index++){
+            if(bytecodearray[index].includes(":")){
+                var localBytecode = bytecodearray[index].split(":");
+                var localAddress = parseInt(localBytecode[0],8);
+                currentTable[localAddress] = localBytecode[1];
+            }
+        }
+    }
+    else{
+        for(var index = 0;index < currentJSON.table.length;index++){
+            var localaddr = parseInt(currentJSON.table[index].split(":")[0],8);    
+            currentTable[localaddr] = currentJSON.table[index].split(":")[1];
+        }
+    }
+    currentAddress = 0250;
+    shapetableindex = (currentAddress&0777) - 0220;
+    currentGlyph = currentJSON.glyph + "0207,";
+    //unit = 100;
+    //x0 =  0.5*innerWidth;
+    //y0 = 0.5*innerHeight;
+    unit = currentJSON.unit;
+    x0 =  0.5*innerWidth + currentJSON.x0rel;
+    y0 = 0.5*innerHeight + currentJSON.y0rel;
+
+    document.getElementById("backgroundimage").src = currentJSON.imgurl;
+
+    redraw();
+    
+}
+
+
+document.getElementById("urlinput").onchange = function(){
+    var localurl = this.value;
+    
+    var httpc = new XMLHttpRequest();
+    httpc.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            localstring = this.responseText;
+            document.getElementById("textIO").value = localstring;
+            if(localurl.substr(-4) == ".svg"){
+                localstring = localstring.split("<json>")[1].split("</json>")[0];
+            }
+            if(localstring.search("{") == -1){
+                var inputbytecode = localstring;
+                var bytecodearray = inputbytecode.split("\n");
+                for(var index = 0;index < bytecodearray.length;index++){
+                    if(bytecodearray[index].includes(":")){
+                        var localBytecode = bytecodearray[index].split(":");
+                        var localAddress = parseInt(localBytecode[0],8);
+                        currentTable[localAddress] = localBytecode[1];
+                    }
+                }
+            }
+            else{
+                currentJSON = JSON.parse(localstring);
+                for(var index = 0;index < currentJSON.table.length;index++){
+                    var localaddr = parseInt(currentJSON.table[index].split(":")[0],8);    
+                    currentTable[localaddr] = currentJSON.table[index].split(":")[1];
+                }
+            }
+            currentAddress = 0250;
+            shapetableindex = (currentAddress&0777) - 0220;
+            currentGlyph = currentJSON.glyph + "0207,";
+            //unit = 100;
+            //x0 =  0.5*innerWidth;
+            //y0 = 0.5*innerHeight;
+            unit = currentJSON.unit;
+            x0 =  0.5*innerWidth + currentJSON.x0rel;
+            y0 = 0.5*innerHeight + currentJSON.y0rel;
+
+            document.getElementById("backgroundimage").src = currentJSON.imgurl;
+            if(currentJSON.styleJSON != undefined){
+                styleJSON = currentJSON.styleJSON;
+                //save the json style file
+    
+                if(path.length > 1){
+                    jsonstylefile =  "symbols/"  +  path + "json/stylejson.txt";
+                }    
+                else{
+                    jsonstylefile = "json/stylejson.txt";
+                }
+                data = encodeURIComponent(JSON.stringify(styleJSON,null,"    "));
+                var httpc2 = new XMLHttpRequest();
+                var url = "filesaver.php";        
+                httpc2.open("POST", url, true);
+                httpc2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+                httpc2.send("data="+data+"&filename="+jsonstylefile);//send text to filesaver.php
+
+            }
+
+            redraw();
+
+        }
+    };
+    httpc.open("GET", "fileloader.php?filename=" + localurl, true);
+    httpc.send();
+
+    
+    
+    
+}
+
+

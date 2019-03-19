@@ -1,0 +1,43 @@
+# Book of Trash Robot
+
+ - bill of materials
+ - circuit boards: schematics
+ - symbols of 5 boards, symbolism with elements of alchemy 
+ - sequence of programs and demonstrations
+ - how to assemble full physical system in a box, fully portable with all components:
+      - UNO with uno shield and pluggable dual h bridge
+      - UNO with relaxation oscillator board, speaker, knobs
+      - MEGA with GOSP board, button board, and three dual h bridges
+      - 2 drive coils
+      - sense coil
+      - magnet and spring for oscillator
+      - rotating stepper motor, scavenged from printer or the like
+      - 12 V USB chargeable battery with USB 5 V power out and charger
+      - wall wort replacement for same
+      - USB battery packs for arduinos
+      - USB hub to distribute power to arduinos 
+      - pressure and temperature i2c board
+      - optical sensing i2c board
+      - neopixel strips
+      - random little dc motors
+      - optical stage with connectors and cables to seed the system
+      - heating element
+      - DC analog thermometer
+      - compact, self contained, artistically decorated carrying case
+ - summary of applications:
+      - generic motor drive
+      - generic stage drive
+      - pump
+      - temperature regulation
+      - carving stone, wood, plastic, metal
+      - electrochemical transport based fabrication
+ - action cards:
+      - buy parts
+      - assemble circuit boards
+      - program arduinos
+      - assemble fully enclosed and ready to ship systems, with cardboard and art
+      - action cards for specific applications such as pumps, stone carvers, plastic melters, generic vibration motors, generic robots, huge robots, generic automation 
+      - make and share action cards--self replicating action card, action card propagator
+      - detailed MAP of trash robot as sub map of factory map from map factory
+    
+ 
