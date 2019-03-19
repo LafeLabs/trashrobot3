@@ -48,6 +48,29 @@
 |    Transistor |  IRF7862     |    8   |[Mouser](https://www.mouser.com/ProductDetail/Infineon-IR/IRF7862TRPBF?qs=%2fha2pyFadughaNBoB2VyeDpq8vz8zxt1%252baAF1EqMLy8%3d)| 
 |10k resistor |P10.0KHCT-ND|4|[Digikey](https://www.digikey.com/products/en?keywords=P10.0KHCT-ND)|
 
+### GOSP Board
+
+| description   |  part number | number | link |
+|---------------|--------------|--------|------|
+|  quad op amp |  MCP6044T-I/SLCT-ND |    1   |[Digikey](https://www.digikey.com/products/en?keywords=MCP6044T-I%2FSLCT-ND)|
+|  Photodiode|  1080-1140-ND|    4   |[Digikey](https://www.digikey.com/products/en?keywords=1080-1140-ND)|
+|  4 pin header | TSW-104-14-G-S |    1   |[Digikey](https://www.digikey.com/product-detail/en/samtec-inc/TSW-104-14-G-S/SAM1053-04-ND/1102520)|
+|  2 pin header | TSW-102-14-G-S |    1   |[Digikey](https://www.digikey.com/product-detail/en/samtec-inc/TSW-102-14-G-S/SAM1053-02-ND/1102522)|
+|  10 MOhm Resistor|  CR0603-FW-1005ELFCT-ND  |    4   |[Digikey](https://www.digikey.com/products/en?keywords=cr0603-fw-1005elfct-nd)|
+
+
+
+### Relaxation Osillator
+
+| description   |  part number | number | link |
+|---------------|--------------|--------|------|
+| 100 uF Ceramic Cap | 490-13982-1-ND |    2   |[Digikey](https://www.digikey.com/product-detail/en/murata-electronics-north-america/GRM31CR60J107KE39L/490-13982-1-ND/6155812)|
+| spring clips | 277-6354-ND   |    3   | [Digikey](https://www.digikey.com/product-detail/en/infineon-technologies/IRF7862TRPBF/IRF7862TRPBFCT-ND/1925918) |
+|  20k pot      |  PTV09A-4030U-B203-ND  |    2   |[Digikey](https://www.digikey.com/products/en?keywords=PTV09A-4030U-B203-ND)|
+|  4 pin header | TSW-104-14-G-S |    4   |[Digikey](https://www.digikey.com/product-detail/en/samtec-inc/TSW-104-14-G-S/SAM1053-04-ND/1102520)|
+|  10 uF cap|  490-14506-ND  |    1   |[Digikey](https://www.digikey.com/products/en?keywords=490-14506-ND)|
+|  1 uF cap|  490-8817-ND  |    1   |[Digikey](https://www.digikey.com/products/en?keywords=490-8817-ND)|
+|  0.1 uF cap|  490-9258-1-ND  |    1   |[Digikey](https://www.digikey.com/products/en?keywords=490-9258-1-ND)|
 
 
 
