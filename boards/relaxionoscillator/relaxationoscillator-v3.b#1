@@ -179,8 +179,8 @@
 <text x="39.37" y="9.398" size="1.016" layer="21" rot="R90">490-13982-1-ND</text>
 <text x="40.132" y="3.81" size="1.4224" layer="21" rot="R180">Audio Out</text>
 <text x="35.306" y="13.208" size="1.016" layer="21" rot="R90">100 uF</text>
-<text x="6.096" y="51.562" size="1.778" layer="21" rot="R180">V0</text>
-<text x="52.832" y="51.816" size="1.778" layer="21" rot="R180">DeltaV</text>
+<text x="11.938" y="50.292" size="1.778" layer="21" rot="R180">V0</text>
+<text x="46.228" y="50.292" size="1.778" layer="21" rot="R180">DeltaV</text>
 <wire x1="24.13" y1="27.686" x2="24.13" y2="20.828" width="0.508" layer="21"/>
 <wire x1="26.162" y1="20.574" x2="21.844" y2="20.574" width="0.508" layer="21"/>
 <wire x1="25.146" y1="19.558" x2="22.86" y2="19.558" width="0.508" layer="21"/>
@@ -201,7 +201,7 @@ www.trashrobot.org</text>
 <wire x1="51.562" y1="30.226" x2="51.562" y2="20.066" width="0.508" layer="21"/>
 <wire x1="51.562" y1="20.066" x2="49.53" y2="20.066" width="0.508" layer="21"/>
 <text x="12.446" y="13.462" size="1.016" layer="21">277-6354-ND</text>
-<text x="24.892" y="35.814" size="1.016" layer="21" rot="R90">PTV09A-4030U-B203-ND</text>
+<text x="8.636" y="36.576" size="1.016" layer="21" rot="R90">PTV09A-4030U-B203-ND</text>
 <text x="-0.762" y="37.592" size="1.016" layer="21" rot="R270">SAM1053-04-ND</text>
 <text x="53.086" y="20.066" size="1.016" layer="21" rot="R90">SAM1053-04-ND</text>
 <text x="53.086" y="32.512" size="1.016" layer="21" rot="R90">SAM1053-04-ND</text>
@@ -641,8 +641,8 @@ design rules under a new name.</description>
 <element name="JP4" library="SparkFun-Connectors" package="1X01" value="M01PTH" x="17.399" y="30.734"/>
 <element name="X2" library="spietz-library" package="SPRING-TERMINAL" value="SPRING-TERMINAL" x="30.48" y="25.146"/>
 <element name="X1" library="spietz-library" package="SPRING-TERMINAL" value="SPRING-TERMINAL" x="11.938" y="27.94" rot="R270"/>
-<element name="R9" library="SparkFun-Electromechanical" package="ALPS_POT_KIT" value="20k" x="38.354" y="46.99" smashed="yes" rot="R270"/>
-<element name="R1" library="SparkFun-Electromechanical" package="ALPS_POT_KIT" value="20k" x="12.7" y="46.99" rot="R270"/>
+<element name="R9" library="SparkFun-Electromechanical" package="ALPS_POT_KIT" value="20k" x="33.782" y="46.482" smashed="yes" rot="R270"/>
+<element name="R1" library="SparkFun-Electromechanical" package="ALPS_POT_KIT" value="20k" x="17.526" y="46.736" rot="R270"/>
 <element name="JP1" library="SparkFun-Connectors" package="1X01" value="M01PTH" x="28.194" y="26.67"/>
 <element name="JP2" library="SparkFun-Connectors" package="1X01" value="M01PTH" x="28.194" y="31.242"/>
 <element name="JP3" library="SparkFun-Connectors" package="1X01" value="M01PTH" x="13.462" y="30.734"/>
@@ -694,20 +694,21 @@ design rules under a new name.</description>
 <contactref element="U$1" pad="5V"/>
 <contactref element="R9" pad="P$3"/>
 <contactref element="R1" pad="P$3"/>
-<wire x1="15.2" y1="39.99" x2="15.2" y2="42.672" width="0.6096" layer="16"/>
-<wire x1="15.2" y1="42.672" x2="40.854" y2="42.672" width="0.6096" layer="16"/>
-<wire x1="40.854" y1="42.672" x2="40.854" y2="39.99" width="0.6096" layer="16"/>
-<wire x1="40.854" y1="39.99" x2="43.688" y2="39.99" width="0.508" layer="16"/>
-<wire x1="43.688" y1="39.99" x2="43.688" y2="21.336" width="0.508" layer="16"/>
-<wire x1="43.688" y1="21.336" x2="50.292" y2="21.336" width="0.508" layer="16"/>
+<wire x1="20.026" y1="39.736" x2="20.026" y2="42.164" width="0.6096" layer="16"/>
+<wire x1="20.026" y1="42.164" x2="36.282" y2="42.164" width="0.6096" layer="16"/>
+<wire x1="36.322" y1="42.164" x2="36.282" y2="42.164" width="0.6096" layer="16"/>
+<wire x1="36.282" y1="42.164" x2="36.282" y2="39.482" width="0.6096" layer="16"/>
+<wire x1="36.282" y1="39.482" x2="44.45" y2="39.482" width="0.508" layer="16"/>
+<wire x1="44.45" y1="39.482" x2="44.45" y2="21.336" width="0.508" layer="16"/>
+<wire x1="44.45" y1="21.336" x2="50.292" y2="21.336" width="0.508" layer="16"/>
 </signal>
 <signal name="N$28">
 <contactref element="U$1" pad="A2"/>
 <contactref element="R9" pad="P$2"/>
-<wire x1="50.292" y1="39.116" x2="45.72" y2="39.116" width="0.6096" layer="1"/>
-<wire x1="45.72" y1="39.116" x2="45.72" y2="42.926" width="0.6096" layer="1"/>
-<wire x1="45.72" y1="42.926" x2="38.354" y2="42.926" width="0.6096" layer="1"/>
-<wire x1="38.354" y1="42.926" x2="38.354" y2="39.99" width="0.6096" layer="1"/>
+<wire x1="50.292" y1="39.116" x2="41.91" y2="39.116" width="0.6096" layer="1"/>
+<wire x1="41.91" y1="39.116" x2="41.91" y2="42.926" width="0.6096" layer="1"/>
+<wire x1="41.91" y1="42.926" x2="33.782" y2="42.926" width="0.6096" layer="1"/>
+<wire x1="33.782" y1="42.926" x2="33.782" y2="39.482" width="0.6096" layer="1"/>
 </signal>
 <signal name="N$30">
 </signal>
@@ -762,8 +763,8 @@ design rules under a new name.</description>
 <signal name="N$6">
 <contactref element="U$1" pad="A1"/>
 <contactref element="R1" pad="P$2"/>
-<wire x1="50.292" y1="36.576" x2="12.7" y2="36.576" width="0.6096" layer="1"/>
-<wire x1="12.7" y1="36.576" x2="12.7" y2="39.99" width="0.6096" layer="1"/>
+<wire x1="50.292" y1="36.576" x2="17.526" y2="36.576" width="0.6096" layer="1"/>
+<wire x1="17.526" y1="36.576" x2="17.526" y2="39.736" width="0.6096" layer="1"/>
 </signal>
 <signal name="N$5">
 <contactref element="C1" pad="1"/>

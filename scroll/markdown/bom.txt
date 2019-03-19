@@ -74,4 +74,5 @@
 
 
 
+this document should also get a set of linkable digikey carts, including one that just buys plenty of everything, so people can take on the investor role.  There should be carts roughly sorted by total amount, say 50, 100, 200, 500 dollars.  Also, samtec bulk orders as action cards.  These are action cards!
 
